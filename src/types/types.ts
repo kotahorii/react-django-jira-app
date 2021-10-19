@@ -64,11 +64,8 @@ export type Category = {
   item: string;
 };
 export type TaskState = {
-  tasks: ReadTask[];
-  editedTask: PostTask[];
-  selectedTask: ReadTask[];
-  users: User[];
-  category: Category[];
+  editedTask: PostTask;
+  selectedTask: ReadTask
 };
 export type SortState = {
   rows: ReadTask[];
