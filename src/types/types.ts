@@ -72,3 +72,11 @@ export type SortState = {
   order: "desc" | "asc";
   activeKey: string;
 };
+
+export type Data = {
+  task: string;
+  status: string;
+  estimate: number;
+  responsible_username: string;
+  owner_username: string;
+};

@@ -1,28 +1,17 @@
 import { VFC, useMemo } from "react";
 import { Table, Thead, Tbody, Tr, Th, Td, chakra } from "@chakra-ui/react";
+import { Icon } from "@chakra-ui/icon";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
-import { useTable, useSortBy, Column } from "react-table";
-import { useQueryMyProf } from "../../../hooks/auth/useQueryMyProf";
-import { useQueryProfs } from "../../../hooks/auth/useQueryProfs";
+import { useTable, useSortBy } from "react-table";
 import { useQueryTasks } from "../../../hooks/task/useQueryTasks";
-import { useAppDispatch } from "../../../app/hooks";
-import { ReadTask } from "../../../types/types";
-import { useQueryClient } from "react-query";
+import { Data } from "../../../types/types";
+import { FaEdit } from "react-icons/fa";
+import { AiFillDelete } from "react-icons/ai";
+
 export const TaskList: VFC = () => {
-  const queryClient = useQueryClient();
-  const { data: tasks, refetch } = useQueryTasks();
-  const { data: loginUser } = useQueryMyProf();
-  const { data: profiles } = useQueryProfs();
+  const { data: tasks } = useQueryTasks();
 
-  type Data = {
-    task: string;
-    status: string;
-    estimate: number;
-    responsible_username: string;
-    owner_username: string;
-  };
-
-  const columns: Column<Data>[] = useMemo(
+  const columns: any = useMemo(
     () => [
       {
         Header: "Task",
@@ -44,17 +33,42 @@ export const TaskList: VFC = () => {
         Header: "Owner",
         accessor: "owner_username",
       },
+      {
+        Cell: (props: any) => (
+          <Icon
+            as={FaEdit}
+            cursor="pointer"
+            color="gray.500"
+            _hover={{ color: "gray.600" }}
+          />
+        ),
+        Header: "",
+        id: "edit",
+      },
+      {
+        Cell: () => (
+          <Icon
+            as={AiFillDelete}
+            cursor="pointer"
+            color="gray.500"
+            _hover={{ color: "gray.600" }}
+          />
+        ),
+        Header: "",
+        id: "delete",
+      },
     ],
     []
   );
 
-  const newTasks: Data[] = tasks
+  const newTasks: any = tasks
     ? tasks?.map((task) => ({
         task: task.task,
         status: task.status,
         estimate: task.estimate,
         responsible_username: task.responsible_username,
         owner_username: task.owner_username,
+        id: task.id,
       }))
     : [
         {
@@ -63,6 +77,7 @@ export const TaskList: VFC = () => {
           estimate: 0,
           responsible_username: "",
           owner_username: "",
+          id: 0,
         },
       ];
   console.log("task");
