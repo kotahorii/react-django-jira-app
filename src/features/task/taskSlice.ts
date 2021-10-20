@@ -40,13 +40,20 @@ export const taskSlice = createSlice({
     editTask(state, action: PayloadAction<PostTask>) {
       state.editedTask = action.payload;
     },
+    resetEditedTask(state) {
+      state.editedTask = initialState.editedTask;
+    },
     selectTask(state, action: PayloadAction<ReadTask>) {
       state.selectedTask = action.payload;
+    },
+    resetSelectedTask(state) {
+      state.selectedTask = initialState.selectedTask;
     },
   },
 });
 
-export const { editTask, selectTask } = taskSlice.actions;
+export const { editTask, selectTask, resetEditedTask, resetSelectedTask } =
+  taskSlice.actions;
 export const selectSelectedTask = (state: RootState) => state.task.editedTask;
 export const selectEditedTask = (state: RootState) => state.task.selectedTask;
 export default taskSlice.reducer;

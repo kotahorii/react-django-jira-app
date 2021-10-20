@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { Cred, JWT, Profile, User } from "../../types/types";
+import { Cred, JWT, PostProfile, Profile, User } from "../../types/types";
 
 export const fetchAsyncLogin = createAsyncThunk(
   "auth/login",
@@ -40,6 +40,25 @@ export const fetchAsyncCreateProf = createAsyncThunk(
     const res = await axios.post<Profile>(
       `${process.env.REACT_APP_API_URL}/api/profile/`,
       { img: null },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${localStorage.localJWT}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
+export const fetchAsyncUpdateProf = createAsyncThunk(
+  "auth/updateProfile",
+  async (profile: PostProfile) => {
+    const uploadData = new FormData();
+    profile.img && uploadData.append("img", profile.img, profile.img.name);
+    const res = await axios.put<Profile>(
+      `${process.env.REACT_APP_API_URL}/api/profile/${profile.id}/`,
+      uploadData,
       {
         headers: {
           "Content-Type": "application/json",
