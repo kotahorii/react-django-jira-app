@@ -66,7 +66,7 @@ export const Auth: VFC = () => {
                   color="white"
                   type="submit"
                 >
-                  Submit
+                  {isLoginView ? "Login" : "Register"}
                 </Button>
               </Stack>
             </form>

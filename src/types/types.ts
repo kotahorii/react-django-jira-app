@@ -65,7 +65,7 @@ export type Category = {
 };
 export type TaskState = {
   editedTask: PostTask;
-  selectedTask: ReadTask
+  selectedTask: ReadTask;
 };
 export type SortState = {
   rows: ReadTask[];

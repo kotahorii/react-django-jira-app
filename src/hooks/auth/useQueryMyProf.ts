@@ -17,6 +17,6 @@ export const useQueryMyProf = () => {
   return useQuery<LoginUser, Error>({
     queryKey: "myprof",
     queryFn: getMyProf,
-    staleTime: Infinity,
+    staleTime: 0,
   });
 };

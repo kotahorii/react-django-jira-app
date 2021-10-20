@@ -18,6 +18,7 @@ export const useQueryProfs = () => {
     queryKey: "profs",
     queryFn: getProfs,
     staleTime: 0,
+
     refetchOnWindowFocus: true,
   });
 };
