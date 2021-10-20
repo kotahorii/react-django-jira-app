@@ -27,7 +27,7 @@ export const Auth: VFC = () => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting },
   } = useForm<FormInput>();
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     if (isLoginView) {
